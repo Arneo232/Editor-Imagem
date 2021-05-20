@@ -1,0 +1,133 @@
+#:set cor_texto .57, .57, .57, 1
+#:set cor_fundo .92, .92, .92, 1
+#:set cor_borda .80, .80, .80, 1
+#:set cor_botao .65, .65, .65, 1
+#:set cor_botao_azul .23, .41, .78, 1
+#:set cor_botao_laranja .93, .52, .31, 1
+
+<BotaoEdicao@Button>:
+	nome_imagem: ''
+	background_down: ''
+	background_normal: ''
+	background_color: cor_botao
+	on_press: self.background_color = cor_botao_laranja
+	on_release: self.background_color = cor_botao
+	Image:
+		source: 'icones/' + self.parent.nome_imagem
+		x: self.parent.center_x - 32
+		y: self.parent.center_y - 32
+		size_hint: None, None
+		width: 64
+		height: 64
+
+<BotaoCancelarSalvar@Button>:
+	background_down: ''
+	background_normal: ''
+	background_color: cor_botao
+	font_size: 25
+	on_press: self.background_color = cor_botao_azul
+	on_release: self.background_color = cor_botao
+
+<BotaoSalvar@Button>:
+	background_down: ''
+	background_normal: ''
+	background_color: cor_botao
+	font_size: 25
+	on_press: self.background_color = cor_botao_azul
+	on_release: self.background_color = cor_botao
+
+<TelaInicial>:
+	BoxLayout:
+		padding: 15
+		BoxLayout:
+			orientation: 'vertical'
+			canvas.before:
+				Color:
+					rgba: cor_borda
+				RoundedRectangle:
+					size: self.size
+					pos: self.pos
+					radius: 5, 5, 5, 5
+				Color:
+					rgba: cor_fundo
+				RoundedRectangle:
+					size: self.size[0] - 12, self.size[1] - 12
+					pos: self.pos[0] + 6, self.pos[1] + 6
+					radius: 5, 5, 5, 5
+			BoxLayout:
+				Image:
+					source: 'icones/arquivo_de_imagem.png'
+					size_hint: 1, .4
+			Label:
+				id: mensagem
+				color: cor_texto
+				text: '[b]Procure uma imagem[/b] e arraste ela aqui'
+				font_size: 22
+				markup: True
+				halign: 'center'
+				valign: 'top'
+				text_size: self.size
+
+<TelaEdicao>:
+	BoxLayout:
+		padding: 15
+		BoxLayout:
+			orientation: 'vertical'
+			BoxLayout:
+				size_hint: 1, None
+				height: 100
+				spacing: 5
+				BotaoEdicao:
+					nome_imagem: 'bt1.png'
+					on_release: root.bt_girar_anti_horario()
+				BotaoEdicao:
+					nome_imagem: 'bt2.png'
+					on_release: root.bt_girar_horario()
+				BotaoEdicao:
+					nome_imagem: 'bt3.png'
+					on_release: root.bt_preto_e_branco()
+				BotaoEdicao:
+					nome_imagem: 'bt4.png'
+					on_release: root.bt_upscale()
+			Widget:
+				size_hint: 1, None
+				height: 10
+			BoxLayout:
+				id: area_imagem
+			Widget:
+				size_hint: 1, None
+				height: 10
+			BoxLayout:
+				size_hint: 1, None
+				height: 100
+				spacing: 5
+				BotaoCancelarSalvar:
+					text: 'Cancelar'
+					on_release: root.bt_cancelar()
+				BotaoSalvar:
+					text: 'Salvar'
+					on_release: root.bt_salvar()
+<TelaSaveDialog>:
+    text_input: text_input
+    BoxLayout:
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
+            on_selection: text_input.text = self.selection and self.selection[0] or ''
+
+        TextInput:
+            id: text_input
+            size_hint_y: None
+            height: 30
+            multiline: False
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+
+            Button:
+                text: "Save"
+                on_release: root.save(filechooser.path, text_input.text)
