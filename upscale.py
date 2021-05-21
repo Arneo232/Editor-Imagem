@@ -28,7 +28,6 @@ def upscale_image(model, img):
     return out_img
 
 def upscale_image_3_channels(model, img):
-    """Predict the result based on input image and restore the image as RGB."""
     y = img_to_array(img)
     y = y.astype("float32") / 255.0
 
@@ -38,14 +37,13 @@ def upscale_image_3_channels(model, img):
     out_img_y = out[0]
     out_img_y *= 255.0
 
-    # Restore the image in RGB color space.
     out_img_y = out_img_y.clip(0, 255)
     out_img_y = out_img_y.reshape((np.shape(out_img_y)[0], np.shape(out_img_y)[1], 3))
     out_img_y = PIL.Image.fromarray(np.uint8(out_img_y), mode="RGB")
     return out_img_y
 
-
 UPSCALE_MODEL = load_model('model.h5')
+UPSCALE_MODEL_3 = load_model('model_3channels.h5')
 
 if __name__ == '__main__':
     with Image.open("Macaco-self_small.jpg") as im:
