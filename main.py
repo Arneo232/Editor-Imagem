@@ -1,3 +1,4 @@
+import os
 from io import BytesIO
 
 from kivy.app import App
@@ -82,17 +83,26 @@ class TelaEdicao(Screen, Geral):
 		self.mudar_tela('tela_inicial', 'No')
 		ed.resetar()
 
-	def bt_salvar(self):
-		ed.salvar()
+	def bt_mostrar_salvar(self):
+		self.mudar_tela('tela_salvar', 'No')
+
+class TelaSaveDialog(Screen, Geral):
+	def bt_salvar(self, path, filename):
+		ed.salvar(os.path.join(path, filename))
 		tela_inicial = self.manager.get_screen('tela_inicial')
 		tela_inicial.alterar_mensagem('[b]Procure uma imagem[/b] e arraste ela aqui')
 		self.mudar_tela('tela_inicial', 'No')
 		ed.resetar()
 
+	def bt_cancelar(self):
+		tela_edicao = self.manager.get_screen('tela_edicao')
+		tela_edicao.exibir_imagem()
+		self.mudar_tela('tela_edicao')
 
 sm = ScreenManager()
 sm.add_widget(TelaInicial(name='tela_inicial'))
 sm.add_widget(TelaEdicao(name='tela_edicao'))
+sm.add_widget(TelaSaveDialog(name='tela_salvar'))
 
 
 class Programa(App):

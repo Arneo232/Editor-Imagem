@@ -48,39 +48,7 @@ class Editor():
 	def upscale_imagem(self):
 		self.img = upscale_image(UPSCALE_MODEL, self.img)
 
-	def salvar(self):
-		ln = "teste.jpg"
-		self.img.save(ln, self.img_formato)
-
-
-class SaveDialog(FloatLayout):
-	save = ObjectProperty(None)
-	text_input = ObjectProperty(None)
-	cancel = ObjectProperty(None)
-
-class Root(FloatLayout):
-    loadfile = ObjectProperty(None)
-    savefile = ObjectProperty(None)
-    text_input = ObjectProperty(None)
-
-    def dismiss_popup(self):
-        self._popup.dismiss()
-
-
-    def show_save(self):
-        content = SaveDialog(save=self.save, cancel=self.dismiss_popup)
-        self._popup = Popup(title="Save file", content=content,
-                            size_hint=(0.9, 0.9))
-        self._popup.open()
-
-    def save(self, path, filename):
-        with open(os.path.join(path, filename), 'w') as stream:
-            stream.write(self.text_input.text)
-
-        self.dismiss_popup()
-
-Factory.register('Root', cls=Root)
-Factory.register('SaveDialog', cls=SaveDialog)
-
+	def salvar(self,path):
+		self.img.save(path, self.img_formato)
 
 ed = Editor()
