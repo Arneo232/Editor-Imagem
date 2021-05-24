@@ -77,6 +77,10 @@ class TelaEdicao(Screen, Geral):
 		ed.upscale_imagem()
 		self.exibir_imagem()
 
+	def bt_upscale_image_3_channels(self):
+		ed.upscale_image_3_channels()
+		self.exibir_imagem()
+
 	def bt_cancelar(self):
 		tela_inicial = self.manager.get_screen('tela_inicial')
 		tela_inicial.alterar_mensagem('[b]Procure uma imagem[/b] e arraste ela aqui')

@@ -1,6 +1,6 @@
 from os import path
 from PIL import Image, ImageEnhance
-from upscale import upscale_image, UPSCALE_MODEL
+from upscale import upscale_image, UPSCALE_MODEL, upscale_image_3_channels, UPSCALE_MODEL_3
 
 from kivy.uix.floatlayout import FloatLayout
 from kivy.factory import Factory
@@ -47,6 +47,10 @@ class Editor():
 
 	def upscale_imagem(self):
 		self.img = upscale_image(UPSCALE_MODEL, self.img)
+
+	def upscale_image_3_channels(self):
+		self.img = upscale_image_3_channels(UPSCALE_MODEL_3, self.img)
+
 
 	def salvar(self,path):
 		self.img.save(path, self.img_formato)
