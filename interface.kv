@@ -4,6 +4,7 @@
 #:set cor_botao .65, .65, .65, 1
 #:set cor_botao_azul .23, .41, .78, 1
 #:set cor_botao_laranja .93, .52, .31, 1
+#:set cor_fundosalvar 0, 0, 0, 1
 
 <BotaoEdicao@Button>:
 	nome_imagem: ''
@@ -112,6 +113,16 @@
 					on_release: root.bt_mostrar_salvar()
 <TelaSaveDialog>:
     text_input: text_input
+    BoxLayout:
+		BoxLayout:
+			orientation: 'vertical'
+			canvas.before:
+				Color:
+					rgba: cor_fundosalvar
+				RoundedRectangle:
+					size: self.size[0], self.size[0]
+					pos: self.pos[0] , self.pos[0]
+
     BoxLayout:
         orientation: "vertical"
         FileChooserListView:
