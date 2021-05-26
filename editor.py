@@ -51,10 +51,8 @@ class Editor():
 	def upscale_image_3_channels(self):
 		self.img = upscale_image_3_channels(UPSCALE_MODEL_3, self.img)
 
+
 	def salvar(self,path):
 		self.img.save(path, self.img_formato)
-
-	def sair(self):
-		exit()
 
 ed = Editor()
