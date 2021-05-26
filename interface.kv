@@ -37,6 +37,14 @@
 	on_press: self.background_color = cor_botao_azul
 	on_release: self.background_color = cor_botao
 
+<BotaoSair@Button>:
+	background_down: ''
+	background_normal: ''
+	background_color: cor_botao
+	font_size: 25
+	on_press: self.background_color = cor_botao_azul
+	on_release: self.background_color = cor_botao
+
 <TelaInicial>:
 	BoxLayout:
 		padding: 15
@@ -105,6 +113,9 @@
 				size_hint: 1, None
 				height: 100
 				spacing: 5
+				BotaoSair:
+					text: 'Sair'
+					on_release: root.bt_sair()
 				BotaoCancelarSalvar:
 					text: 'Cancelar'
 					on_release: root.bt_cancelar()
