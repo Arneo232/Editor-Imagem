@@ -90,6 +90,9 @@ class TelaEdicao(Screen, Geral):
 	def bt_mostrar_salvar(self):
 		self.mudar_tela('tela_salvar', 'No')
 
+	def bt_sair(self):
+		ed.sair()
+
 class TelaSaveDialog(Screen, Geral):
 	def bt_salvar(self, path, filename):
 		ed.salvar(os.path.join(path, filename))
