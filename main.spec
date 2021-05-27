@@ -4,10 +4,18 @@
 block_cipher = None
 
 
+added_files = [
+         ( 'model.h5', '.' ),
+         ( 'model_3channels.h5', '.' ),
+         ( 'interface.kv', '.' ),
+         ( 'icones', 'icones' )
+         ]
+
+
 a = Analysis(['main.py'],
              pathex=['C:\\Users\\Aluno\\Documents\\GitHub\\Editor-Imagem'],
              binaries=[],
-             datas=[('model.h5','model.h5')],
+             datas=added_files,
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
